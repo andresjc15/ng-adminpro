@@ -20,11 +20,11 @@ export class BreadcrumbsComponent implements OnDestroy {
   ) {
 
     console.log( route.snapshot.children[0].data );
-    // this.tituloSubs$ = this.getArgumentosRuta()
-    //                     .subscribe( ({ titulo }) => {
-    //                       this.titulo = titulo;
-    //                       document.title = `AdminPro - ${titulo}`;
-    //                     });
+    this.tituloSubs$ = this.getArgumentosRuta()
+                        .subscribe( ({ titulo }) => {
+                          this.titulo = titulo;
+                          document.title = `AdminPro - ${titulo}`;
+                        });
   }
   ngOnDestroy(): void {
     this.tituloSubs$.unsubscribe();

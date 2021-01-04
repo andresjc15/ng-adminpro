@@ -1,12 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, map, catchError } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { environment } from 'src/environments/environment';
 
 import { RegisterForm } from '../interfaces/register-form';
 import { LoginForm } from '../interfaces/login-form';
-import { of, Observable } from 'rxjs';
+
+declare const gapi: any;
 
 const base_url = environment.base_url;
 
@@ -15,9 +18,28 @@ const base_url = environment.base_url;
 })
 export class UsuarioService {
 
+  public auth2: any;
+
   constructor(
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private router: Router,
+    private ngZone: NgZone
+  ) { 
+    this.googleInit();
+  }
+
+  googleInit() {
+    return new Promise<void>( (resolve) => {
+      gapi.load('auth2', () => {
+        // Retrieve the singleton for the GoogleAuth library and set up the client.
+        this.auth2 = gapi.auth2.init({
+          client_id: '1059715246594-633h54dsj48blr3fodb6di60cs6isqqf.apps.googleusercontent.com',
+          cookiepolicy: 'single_host_origin'
+        });
+        resolve();
+      });
+    });
+  }
 
   validarToken(): Observable<boolean> {
     const token = localStorage.getItem('token') || '';
@@ -56,5 +78,16 @@ export class UsuarioService {
                   })
                 );
   }
+  
+  logout() {
+    localStorage.removeItem('token');
+    
 
+    this.auth2.signOut().then( () => {
+      // NgZone - Para no perder el ciclo de vida de angular por navegacion de libreria externas (GoogleSignIn)
+      this.ngZone.run( () => {
+        this.router.navigateByUrl('/login');
+      });
+    });
+  }
 }
