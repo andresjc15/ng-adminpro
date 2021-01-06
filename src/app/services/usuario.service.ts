@@ -83,15 +83,12 @@ export class UsuarioService {
   }
 
   actualizarPerfil( data: { email: string, nombre: string, role: string } ){
+
     data = {
       ...data,
       role: this.usuario.role
-    };
-    return this.http.put(`${base_url}usuarios/${this.uid}`, data, {
-      headers: {
-        'x-token': this.token
-      }
-    });
+    }
+    return this.http.put(`${base_url}usuarios/${this.uid}`, data, this.headers );
   }
 
   login( formData: LoginForm ) {
@@ -139,6 +136,15 @@ export class UsuarioService {
                 };
               })
             );
+  }
+
+  actualizarUsuario( usuario: Usuario ){
+    return this.http.put(`${base_url}usuarios/${ usuario.uid }`, usuario, this.headers );
+  }
+
+  eliminarUsuario( usuario: Usuario ) {
+    const url = `${ base_url }usuarios/${ usuario.uid }`;
+    return this.http.delete( url, this.headers );
   }
 
 }
