@@ -12,6 +12,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { MedicoComponent } from './mantenimientos/medicos/medico.component';
 
 
 const routes: Routes = [
@@ -26,10 +29,13 @@ const routes: Routes = [
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' }  },
             { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' }  },
             { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes' }  },
-            { path: 'perfil', component: PerfilComponent, data: { titulo: 'Usuarios de la aplicación' } },
+            { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } },
 
             // Mantenimientos
-            { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Perfil de usuario' } },
+            { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios de la aplicación' } },
+            { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Hospitales' } },
+            { path: 'medicos', component: MedicosComponent, data: { titulo: 'Medicos' } },
+            { path: 'medicos/:id', component: MedicoComponent, data: { titulo: 'Medicos' } },
         ]
     },  
 ];
