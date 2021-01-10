@@ -58,7 +58,7 @@ export class MedicosComponent implements OnInit, OnDestroy {
       confirmButtonText: 'Si, estoy seguro'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.medicoService.eliminarMedico( medico.id )
+        this.medicoService.eliminarMedico( medico._id )
           .subscribe( resp => {
             Swal.fire(
               'Medico Eliminado',
@@ -85,7 +85,7 @@ export class MedicosComponent implements OnInit, OnDestroy {
   }
 
   abrirModal( medico: Medico ) {
-    this.modalImagenService.abrirModal('medicos', medico.id, medico.img );
+    this.modalImagenService.abrirModal('medicos', medico._id, medico.img );
   }
 
 }
