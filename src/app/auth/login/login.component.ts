@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
           this.usuarioService.loginGoogle( id_token )
             .subscribe( resp => {
               // Redirección al dashboard
+              console.log(resp);
               this.ngZone.run( () => {
                 this.router.navigateByUrl('/');
               });

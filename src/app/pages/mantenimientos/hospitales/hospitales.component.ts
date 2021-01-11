@@ -48,14 +48,14 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   }
 
   guardarCambios( hospital: Hospital ) {
-    this.hospitalService.actualizarHospital( hospital.id, hospital.nombre )
+    this.hospitalService.actualizarHospital( hospital._id, hospital.nombre )
         .subscribe( resp => {
           Swal.fire('Actualizado', hospital.nombre, 'success' );
         });
   }
 
   eliminarHospital( hospital: Hospital ) {
-    this.hospitalService.eliminarHospital( hospital.id )
+    this.hospitalService.eliminarHospital( hospital._id )
         .subscribe( resp => {
           this.cargarHospitales();
           Swal.fire('Eliminado', hospital.nombre, 'success' );
@@ -82,7 +82,7 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   }
 
   abrirModal( hospital: Hospital ) {
-    this.modalImagenService.abrirModal('hospitales', hospital.id, hospital.img );
+    this.modalImagenService.abrirModal('hospitales', hospital._id, hospital.img );
   }
 
   buscar( termino: string ) {
